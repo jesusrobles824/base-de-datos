@@ -1,0 +1,38 @@
+name: Ejecutar script tasas y guardar resultados
+
+on:
+  schedule:
+    # Todos los días a las 05:00 de Argentina (08:00 UTC)
+    - cron: "0 8 * * *"
+  workflow_dispatch: # Para correrlo manualmente también
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repo
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Instalar dependencias
+        run: |
+          pip install -r requirements.txt
+
+      - name: Ejecutar script
+        run: python tasas.py
+
+      - name: Configurar git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Guardar Excel y gráfico en el repo
+        run: |
+          git add Tasas.xlsx "Principales tasas de interés de mercado. TNA (%).png"
+          git commit -m "Auto-update: resultados $(date +'%Y-%m-%d %H:%M')" || echo "No hay cambios"
+          git push
