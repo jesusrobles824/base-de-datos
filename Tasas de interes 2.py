@@ -40,7 +40,6 @@ mes = ultimo.month
 fin_mes = (ultimo + pd.offsets.MonthEnd(0)).date()
 ultimo = ultimo.strftime('%d-%m-%Y')
 
-fondo = plt.imread("Fondo1.png")
 # Establecer el estilo
 sns.set(style='white')
 plt.figure(figsize=(12,8))
@@ -119,8 +118,6 @@ plt.gca().hlines(106, pd.Timestamp('2024-06-01'), fin_mes, color='gray', linesty
 plt.ylim(10, 115)
 # Agregar la leyenda usando los patches
 plt.legend(handles=patches, loc="upper center", frameon=False, handlelength=0.8, handleheight=0.8, ncol=3, bbox_to_anchor=(0.49,1.16), columnspacing=1.8, fontsize=13)
-plt.gcf().figimage(fondo,xo=0, yo=0, alpha=0.15, zorder=-2)
-plt.gca().imshow(fondo, aspect='auto', extent=[pd.Timestamp('2024-06-01'), fin_mes, 10, 115], alpha=0.15)
 #plt.text(1, 1.18, '@JesusRobles824', fontsize=14, color='black', weight='bold', transform=plt.gca().transAxes, ha='right')
 # Ajustar el diseño y mostrar el gráfico
 plt.tight_layout()
@@ -129,4 +126,5 @@ plt.gca().spines['bottom'].set_color('gray')
 plt.savefig('Principales tasas de interés de mercado. TNA (%).png', bbox_inches='tight', pad_inches=0.4, dpi=150)
 plt.show()
 print(Tasas)
+
 
