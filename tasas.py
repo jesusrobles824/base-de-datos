@@ -19,7 +19,7 @@ import matplotlib.image as mpimg
 import matplotlib.colors as mcolors
 
 url = "https://www.bcra.gob.ar/Pdfs/PublicacionesEstadisticas/series.xlsm"
-response = requests.get(url)
+response = requests.get(url, verify=False)
 
 Tasas = pd.read_excel(BytesIO(response.content), sheet_name='TASAS DE MERCADO', skiprows=8, usecols='A,I,R,S,V,X')
 
@@ -127,4 +127,5 @@ plt.gca().spines['bottom'].set_color('gray')
 plt.savefig('Principales tasas de interés de mercado. TNA (%).png', bbox_inches='tight', pad_inches=0.4, dpi=150)
 plt.show()
 print(Tasas)
+
 
