@@ -80,7 +80,7 @@ for i, columna in enumerate(Tasas.columns):
     # plt.text(adjusted_date, last_value, f'{last_value:.1f}', 
     #         color=colors[i], fontsize=15, ha='left', va='bottom', weight='bold')
 plt.suptitle('Tasas de interés', fontsize=28, color='#004F95', weight='bold', x=0.175, y=0.966)
-plt.title(f'TNA (%) de las principales tasas de mercado. Período junio 2024 a {mes_nombre} 2025.', fontsize=16, color='black', alpha=0.75, pad=80, x=0.40)
+plt.title(f'TNA (%) de las principales tasas de mercado. Período junio 2024 a {mes_nombre} 2025.', fontsize=16, color='black', alpha=0.75, pad=80, x=0.44)
 plt.gca().set_xticks([])
 plt.xlabel(f'Fuente: Jesús Robles en base a BCRA. En paréntesis TNA (%) al {ultimo}.', labelpad=30, fontsize=11.5, x=0.25)
 plt.xlim(pd.Timestamp('2024-06-01'), fin_mes)
@@ -125,6 +125,7 @@ plt.gca().spines['bottom'].set_color('gray')
 plt.savefig('Principales tasas de interés de mercado. TNA (%).png', bbox_inches='tight', pad_inches=0.4, dpi=150)
 plt.show()
 print(Tasas)
+
 
 
 
