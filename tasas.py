@@ -26,7 +26,7 @@ Tasas = pd.read_excel(BytesIO(response.content), sheet_name='TASAS DE MERCADO', 
 Tasas.columns = ['fecha','TAMAR','Préstamos personales','Adelantos en cuenta corriente','Call en Pesos','Repo a 1 día (excl. BCRA)']
 Tasas.set_index('fecha', inplace=True)
 Tasas = Tasas[Tasas.index>'2024-05-31']
-Tasas.to_excel('Tasas.xlsx', index=True)
+Tasas.to_csv('Tasas.csv', index=True)
 
 meses = [
     "enero", "febrero", "marzo", "abril", "mayo", "junio",
@@ -125,6 +125,7 @@ plt.gca().spines['bottom'].set_color('gray')
 plt.savefig('Principales tasas de interés de mercado. TNA (%).png', bbox_inches='tight', pad_inches=0.4, dpi=150)
 plt.show()
 print(Tasas)
+
 
 
 
