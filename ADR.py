@@ -25,11 +25,14 @@ tickers_adrs = ['BBAR', 'BMA', 'CEPU', 'CRESY', 'EDN', 'GGAL', 'IRS','LOMA',
 adrs = yf.download(tickers_adrs, start='2010-01-01', end=hoy)['Close']
 adrs.columns.name = None  # Correcto
 adrs.index.name = 'fecha'  # Correcto
-adrs = adrs.round(1)
+adrs = adrs.round(2)
+adrs = adrs[::-1]
 adrs.to_csv('Precios_ADRs.csv', index=True)
 
 adrs_var = adrs.pct_change() * 100  # en %
-adrs_var = adrs_var.round(1)
+adrs_var = adrs_var.round(2)
+adrs_var = adrs_var[::-1]
 adrs_var.to_csv('ADRs_variacion_porcentual_diaria.csv', index=True)
+
 
 
