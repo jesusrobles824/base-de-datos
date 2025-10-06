@@ -4,7 +4,6 @@ import pandas as pd
 import numpy as np
 from datetime import timedelta
 import matplotlib.pyplot as plt
-import seaborn as sns
 import matplotlib.image as mpimg
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import matplotlib.patches as mpatches
@@ -31,3 +30,4 @@ adrs.to_csv('Precios_ADRs.csv', index=True)
 adrs_var = adrs.pct_change() * 100  # en %
 
 adrs_var.to_csv('ADRs_variacion_porcentual_diaria.csv', index=True)
+
