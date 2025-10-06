@@ -30,17 +30,13 @@ jobs:
       - name: Run script
         run: python ADR.py
 
-      # 5️⃣ Subir CSV al repo destino sin git clone
-      - name: Subir CSV al repo destino
+      - name: Subir CSV al repo destino sin init
         run: |
-          mkdir tmp_repo
+          git clone --branch main --single-branch https://x-access-token:${{ secrets.CJRA824 }}@github.com/jesusrobles824/bases-de-datos.git tmp_repo
           cp Precios_ADRs.csv ADRs_variacion_porcentual_diaria.csv tmp_repo/
           cd tmp_repo
-          git init
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git branch -M main    
-          git remote add origin https://x-access-token:${{ secrets.CJRA824 }}@github.com/jesusrobles824/bases-de-datos.git
           git add Precios_ADRs.csv ADRs_variacion_porcentual_diaria.csv
           git commit -m "Auto-update: resultados $(date +'%Y-%m-%d %H:%M')" || echo "No hay cambios"
-          git push -f origin main
+          git push origin main
