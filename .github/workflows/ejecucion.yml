@@ -32,6 +32,6 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
       - name: Guardar Excel y PNG en el repo
         run: |
-          git add Tasas.xlsx "Principales tasas de interés de mercado. TNA (%).png"
+          git add Tasas.csv "Principales tasas de interés de mercado. TNA (%).png"
           git commit -m "Auto-update: resultados $(date +'%Y-%m-%d %H:%M')" || echo "No hay cambios"
           git push
