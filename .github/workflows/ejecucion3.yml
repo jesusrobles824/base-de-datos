@@ -39,6 +39,7 @@ jobs:
           git init
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git branch -M main    
           git remote add origin https://x-access-token:${{ secrets.CJRA824 }}@github.com/jesusrobles824/bases-de-datos.git
           git add Precios_ADRs.csv ADRs_variacion_porcentual_diaria.csv
           git commit -m "Auto-update: resultados $(date +'%Y-%m-%d %H:%M')" || echo "No hay cambios"
