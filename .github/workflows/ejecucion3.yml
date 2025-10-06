@@ -1,4 +1,4 @@
-name: ADRss
+name: ADRs2
 
 on:
   schedule:
@@ -25,7 +25,7 @@ jobs:
       - name: Run script
         run: python ADR.py
 
-      # ⚡ Esto configura git para tu repo principal (queda igual que antes)
+      # ⚡ Mantener git configurado para el repo principal
       - name: Configurar git
         run: |
           git config user.name "github-actions[bot]"
@@ -37,13 +37,13 @@ jobs:
           git commit -m "Auto-update: resultados $(date +'%Y-%m-%d %H:%M')" || echo "No hay cambios"
           git push
 
-      # 🌟 Nuevo bloque: preparar carpeta output con los CSV que queremos subir al otro repo
+      # 🌟 Preparar carpeta output con los CSV a subir al repo destino
       - name: Prepare CSVs to push
         run: |
           mkdir output
           cp Precios_ADRs.csv ADRs_variacion_porcentual_diaria.csv output/
 
-      # 🌟 Nuevo bloque: usar acción cpina para push al repo destino
+      # 🌟 Push al repo destino usando la acción cpina
       - name: Push CSVs to another repository
         uses: cpina/github-action-push-to-another-repository@main
         env:
@@ -51,7 +51,7 @@ jobs:
         with:
           source-directory: 'output'                        # carpeta con los CSV
           destination-github-username: 'jesusrobles824'    # tu usuario
-          destination-repository-name: 'bases-de-datos'   # repo destino
+          destination-repository-name: 'bases-de-datos'    # repo destino
           user-email: jesusrobles3500@gmail.com           # tu mail
           user-name: github-actions[bot]                  # nombre para el commit
           target-branch: main                              # rama destino
