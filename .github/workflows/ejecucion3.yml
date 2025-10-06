@@ -1,16 +1,15 @@
-name: ADRs2
+name: ADRss
 
 on:
   schedule:
-    - cron: "0 23 * * *"
+    - cron: "0 23 * * *"   # Todos los días a las 05:00 de Argentina (08:00 UTC)
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo principal
+      - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -26,16 +25,34 @@ jobs:
       - name: Run script
         run: python ADR.py
 
-      - name: Subir CSV al repo destino con token
+      # ⚡ Esto configura git para tu repo principal (queda igual que antes)
+      - name: Configurar git
         run: |
-          mkdir tmp_repo
-          cp Precios_ADRs.csv ADRs_variacion_porcentual_diaria.csv tmp_repo/
-          cd tmp_repo
-          git init
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git branch -M main
+
+      - name: Guardar csv en repo principal
+        run: |
           git add Precios_ADRs.csv ADRs_variacion_porcentual_diaria.csv
           git commit -m "Auto-update: resultados $(date +'%Y-%m-%d %H:%M')" || echo "No hay cambios"
-          git remote add origin https://x-access-token:${{ secrets.CJRA824 }}@github.com/jesusrobles824/bases-de-datos.git
-          git push -f origin main
+          git push
+
+      # 🌟 Nuevo bloque: preparar carpeta output con los CSV que queremos subir al otro repo
+      - name: Prepare CSVs to push
+        run: |
+          mkdir output
+          cp Precios_ADRs.csv ADRs_variacion_porcentual_diaria.csv output/
+
+      # 🌟 Nuevo bloque: usar acción cpina para push al repo destino
+      - name: Push CSVs to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.CJRA824 }}  # tu token guardado como secret
+        with:
+          source-directory: 'output'                        # carpeta con los CSV
+          destination-github-username: 'jesusrobles824'    # tu usuario
+          destination-repository-name: 'bases-de-datos'   # repo destino
+          user-email: jesusrobles3500@gmail.com           # tu mail
+          user-name: github-actions[bot]                  # nombre para el commit
+          target-branch: main                              # rama destino
+          commit-message: "Auto-update: resultados $(date +'%Y-%m-%d %H:%M')"
