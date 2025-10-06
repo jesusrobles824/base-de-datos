@@ -1,13 +1,14 @@
-name: ADRs2
+name: ADRs
 
 on:
   schedule:
-    - cron: "0 23 * * *"   # Todos los días a las 05:00 de Argentina (08:00 UTC)
+    - cron: "0 23 * * *"   # Todos los días a las 20:00 UTC / 23:00 Argentina
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -25,34 +26,17 @@ jobs:
       - name: Run script
         run: python ADR.py
 
-      # ⚡ Mantener git configurado para el repo principal
-      - name: Configurar git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Guardar csv en repo principal
-        run: |
-          git add Precios_ADRs.csv ADRs_variacion_porcentual_diaria.csv
-          git commit -m "Auto-update: resultados $(date +'%Y-%m-%d %H:%M')" || echo "No hay cambios"
-          git push
-
-      # 🌟 Preparar carpeta output con los CSV a subir al repo destino
-      - name: Prepare CSVs to push
-        run: |
-          mkdir output
-          cp Precios_ADRs.csv ADRs_variacion_porcentual_diaria.csv output/
-
-      # 🌟 Push al repo destino usando la acción cpina
+      # --- Push CSVs to another repository ---
       - name: Push CSVs to another repository
         uses: cpina/github-action-push-to-another-repository@main
         env:
-          API_TOKEN_GITHUB: ${{ secrets.CJRA824 }}  # tu token guardado como secret
+          API_TOKEN_GITHUB: ${{ secrets.CJRA824 }}   # Tu token guardado en secrets
         with:
-          source-directory: 'output'                        # carpeta con los CSV
-          destination-github-username: 'jesusrobles824'    # tu usuario
-          destination-repository-name: 'bases-de-datos'    # repo destino
-          user-email: jesusrobles3500@gmail.com           # tu mail
-          user-name: github-actions[bot]                  # nombre para el commit
-          target-branch: main                              # rama destino
-          commit-message: "Auto-update: resultados $(date +'%Y-%m-%d %H:%M')"
+          source-directory: '.'                       # Carpeta donde se crean los CSVs
+          destination-github-username: 'jesusrobles824'
+          destination-repository-name: 'bases-de-datos'
+          user-email: 'jesusrobles3500@gmail.com'
+          user-name: 'github-actions[bot]'
+          target-branch: 'main'
+          commit-message: 'Auto-update: resultados $(date +"%Y-%m-%d %H:%M")'
+          create-target-branch-if-needed: true
