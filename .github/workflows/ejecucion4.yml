@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install yfinance pandas matplotlib numpy
+          pip install yfinance pandas matplotlib numpy xlrd
 
       - name: Run script
         run: python Depósitos_tesoro.py
