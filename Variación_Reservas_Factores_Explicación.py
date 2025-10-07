@@ -27,4 +27,5 @@ Variacion_Reservas.to_csv('Variación_RRII_Factores_Explicación.csv',index=True
 
 Variacion_Acumulada = Variacion_Acumulada.round(1)
 Variacion_Acumulada = Variacion_Acumulada[::-1]
-Variacion_Acumulada.to_csv('Variación_Acumulada_RRII_Factores_Explicación')
+
+Variacion_Acumulada.to_csv('Variación_Acumulada_RRII_Factores_Explicación.csv',index=True)
