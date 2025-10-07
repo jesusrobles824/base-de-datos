@@ -23,7 +23,7 @@ jobs:
           pip install yfinance pandas matplotlib numpy
 
       - name: Run script
-        run: python ADR.py
+        run: python Depósitos_tesoro.py
 
 
       - name: Configurar git
