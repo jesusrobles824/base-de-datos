@@ -31,14 +31,16 @@ diar_bas = diar_bas[(diar_bas.index > pd.Timestamp('2024-12-31')) & (diar_bas.in
 diar_bas['Depósitos del tesoro en usd'] = diar_bas['Depósitos_del_tesoro_en_usd'] / diar_bas['TC']
 diar_bas = diar_bas[['Depósitos del tesoro en pesos', 'Depósitos del tesoro en usd']]
 diar_bas = diar_bas.round(2)
-diar_bas = diar_bas[::-1]
-diar_bas.to_csv('Depósitos_tesoro.csv', index=True)
 
 diar_bas_var = diar_bas.diff()
 diar_bas_var = diar_bas_var.round(2)
 diar_bas_var = diar_bas_var.iloc[1:]
 diar_bas_var = diar_bas_var[::-1]
 diar_bas_var.to_csv('Depósitos_tesoro_variación_diaria.csv', index=True)
+
+diar_bas = diar_bas[::-1]
+diar_bas.to_csv('Depósitos_tesoro.csv', index=True)
+
 
 
 
