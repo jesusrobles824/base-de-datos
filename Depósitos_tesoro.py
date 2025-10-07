@@ -8,7 +8,6 @@ from io import BytesIO
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import matplotlib.dates as mdates
-import seaborn as sns
 import matplotlib.ticker as ticker
 from matplotlib.lines import Line2D
 from dateutil.relativedelta import relativedelta
@@ -41,5 +40,6 @@ diar_bas_var = diar_bas_var.round(2)
 diar_bas_var = diar_bas_var.iloc[1:]
 diar_bas_var = diar_bas_var[::-1]
 diar_bas_var.to_csv('Depósitos_tesoro_variación_diaria.csv', index=True)
+
 
 
