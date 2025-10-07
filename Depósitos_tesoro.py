@@ -17,7 +17,6 @@ import matplotlib.lines as mlines
 import matplotlib.image as mpimg
 
 hasta = hasta = pd.Timestamp.today()
-print(hasta)
 url = "https://www.bcra.gob.ar/Pdfs/PublicacionesEstadisticas/diar_bas.xls"
 response = requests.get(url, verify=False)
 diar_bas = pd.read_excel(BytesIO(response.content), 
@@ -40,6 +39,7 @@ diar_bas_var = diar_bas_var.round(2)
 diar_bas_var = diar_bas_var.iloc[1:]
 diar_bas_var = diar_bas_var[::-1]
 diar_bas_var.to_csv('Depósitos_tesoro_variación_diaria.csv', index=True)
+
 
 
 
