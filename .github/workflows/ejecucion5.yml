@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install yfinance pandas matplotlib numpy xlrd
+          pip install yfinance pandas matplotlib numpy xlrd openpyxl
 
       - name: Run script
         run: python Variación_Reservas_Factores_Explicación.py
